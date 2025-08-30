@@ -3,9 +3,9 @@
 
 from odoo.http import request, route, Controller
 import logging
+import urllib.parse
 
 import werkzeug
-from werkzeug.urls import Href, url_encode
 from odoo import SUPERUSER_ID
 from odoo.addons.http_routing.models.ir_http import slugify
 from odoo.addons.saas_portal.controllers.portal import CustomerPortal
@@ -68,7 +68,7 @@ class Main(Controller):
                 })
 
         qcontext.update(
-            query=url_encode({
+            query=urllib.parse.urlencode({
                 "redirect": redirect,
             }),
             database_name=database_name or "",
@@ -87,7 +87,8 @@ class Main(Controller):
         assert not(saas_template_id and installing_modules), "Both saas_template_id and installing_modules given"
 
         if request.env.user == request.env.ref("base.public_user"):
-            return werkzeug.utils.redirect(Href("/web/signup")(params))
+            url = "/web/signup?" + urllib.parse.urlencode(params)
+            return werkzeug.utils.redirect(url)
 
         build = request.env["saas.db"].search([
             ("type", "=", "build"),
@@ -95,9 +96,10 @@ class Main(Controller):
             ("admin_user", "=", request.env.user.id),
         ], order='id DESC', limit=1)
         if not build:
-            return request.redirect(Href("/my/builds/create")({
+            url = "/my/builds/create?" + urllib.parse.urlencode({
                 "redirect": request.httprequest.full_path
-            }))
+            })
+            return request.redirect(url)
 
         request.env["contract.contract"].with_user(SUPERUSER_ID)._create_saas_contract_for_trial(
             build, max_users_limit, period,

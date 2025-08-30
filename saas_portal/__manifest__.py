@@ -1,7 +1,7 @@
 {
     "name": "SaaS: Portal",
     "summary": "Allows to customers see their Builds at Portal",
-    "version": "15.0.1.0.2",
+    "version": "17.0.1.0.2",
     "application": False,
     "author": "IT-Projects LLC, Eugene Molotov",
     "support": "it@it-projects.info",
@@ -23,7 +23,6 @@
         "views/portal_templates.xml",
     ],
     "demo": [],
-    "qweb": [],
     "post_load": None,
     "pre_init_hook": None,
     "post_init_hook": None,
