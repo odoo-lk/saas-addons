@@ -9,7 +9,7 @@
     "category": "SaaS",
     # "live_test_url": "http://apps.it-projects.info/shop/product/DEMO-URL?version=14.0",
     "images": [],
-    "version": "15.0.3.1.0",
+    "version": "17.0.3.1.0",
     "application": False,
 
     "author": "IT-Projects LLC, Ivan Yelizariev",
@@ -49,8 +49,6 @@
     "demo": [
         "demo/saas_template_demo.xml",
         "demo/saas_security_demo.xml",
-    ],
-    "qweb": [
     ],
 
     "post_load": None,
